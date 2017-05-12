@@ -4,9 +4,4 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0-preview1-25305-02" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.105" />
-  </ItemGroup>
-
 </Project>
