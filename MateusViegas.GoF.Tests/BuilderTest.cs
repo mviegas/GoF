@@ -1,34 +1,91 @@
 ﻿using MateusViegas.GoF.Builder;
-using System;
-using System.Reflection;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace MateusViegas.GoF.Tests
 {
     public class BuilderTest
     {
-        [Fact]
-        public void BuildRG()
+        private readonly ITestOutputHelper _output;
+
+        public BuilderTest(ITestOutputHelper output)
         {
-            //Arrange
-            var builder = new RGBuilder()
-                .NomeCompleto("Adriano Leite Ribeiro")
-                .Numero("21345678910")
-                .DataNascimento(new DateTime(1990, 01, 01))
-                .DataExpedicao(new DateTime(1990, 01, 01))
-                .DataValidade(null)
-                .Pai("Jose Ribeiro")
-                .Mae("Maria Leite")
-                .OrgaoExpedidor("DIC")
-                .UF("RJ");
+            _output = output;
+        }
 
-            //Act
-            var rg = builder.Build();
+        [Fact]
+        public void OrderMain()
+        {
+            Combo combo = null;
 
-            rg.ConsoleDisplayValeues();
+            combo = PlaceOrder("M");
 
-            //Assert
-            Assert.IsType<RG>(rg);            
+            Assert.NotNull(combo);
+
+            combo.ConsoleDisplayValues(_output);
+        }
+
+        [Fact]
+        public void OrderHealthy()
+        {
+            Combo combo = null;
+
+            combo = PlaceOrder("H");
+
+            Assert.NotNull(combo);
+
+            combo.ConsoleDisplayValues(_output);
+        }
+
+        [Fact]
+        public void OrderChild()
+        {
+            Combo combo = null;
+
+            combo = PlaceOrder("C");
+
+            Assert.NotNull(combo);
+
+            combo.ConsoleDisplayValues(_output);
+        }
+
+        [Fact]
+        public void OrderInexistant()
+        {
+            Combo combo = null;
+
+            combo = PlaceOrder("Z");
+
+            Assert.Null(combo);
+
+            _output.WriteLine("An inexistant combo was ordered.");
+        }
+
+        private Combo PlaceOrder(string input)
+        {
+            Waiter water = new Waiter();
+            IComboBuilder builder;
+
+            if (input == "M")
+            {
+                builder = new MainComboBuilder();
+                water.OrderCombo(builder);
+                return builder.Combo;
+            }
+            else if (input == "C")
+            {
+                builder = new ChildComboBuilder();
+                water.OrderCombo(builder);
+                return builder.Combo;
+            }
+            else if (input == "H")
+            {
+                builder = new HealthyComboBuilder();
+                water.OrderCombo(builder);
+                return builder.Combo;
+            }
+
+            return null;
         }
     }
 }
