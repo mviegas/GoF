@@ -10,20 +10,21 @@ namespace MateusViegas.GoF.Tests
         public void AssertRefeicaoBasica()
         {
             Console.WriteLine("Testando Factory de Refeicao Basica ...");
-            IRefeicaoFactory factory = new RefeicaoBasicaFactory();
+            Cliente cliente = new Cliente(new RefeicaoBasicaFactory());
 
-            Assert.IsType(typeof(Cheeseburguer), factory.CriarSanduiche());
-            Assert.IsType(typeof(Sundae), factory.CriarSobremesa());
+            Assert.IsType(typeof(Cheeseburguer), cliente.Factory.CriarSanduiche());
+            Assert.IsType(typeof(Sundae), cliente.Factory.CriarSobremesa());
         }
 
         [Fact]
         public void AssertRefeicaoSaudavel()
         {
             Console.WriteLine("Testando Factory de Refeicao Saudavel ...");
-            IRefeicaoFactory factory = new RefeicaoSaudavelFactory();
 
-            Assert.IsType(typeof(Chickenburguer), factory.CriarSanduiche());
-            Assert.IsType(typeof(SaladaDeFrutas), factory.CriarSobremesa());
+            Cliente cliente = new Cliente(new RefeicaoSaudavelFactory());
+
+            Assert.IsType(typeof(Chickenburguer), cliente.Factory.CriarSanduiche());
+            Assert.IsType(typeof(SaladaDeFrutas), cliente.Factory.CriarSobremesa());
         }
     }
 }
