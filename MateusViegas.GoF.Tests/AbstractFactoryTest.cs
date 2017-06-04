@@ -9,7 +9,6 @@ namespace MateusViegas.GoF.Tests
         [Fact]
         public void AssertRefeicaoBasica()
         {
-            Console.WriteLine("Testando Factory de Refeicao Basica ...");
             Cliente cliente = new Cliente(new RefeicaoBasicaFactory());
 
             Assert.IsType(typeof(Cheeseburguer), cliente.Factory.CriarSanduiche());
@@ -19,8 +18,6 @@ namespace MateusViegas.GoF.Tests
         [Fact]
         public void AssertRefeicaoSaudavel()
         {
-            Console.WriteLine("Testando Factory de Refeicao Saudavel ...");
-
             Cliente cliente = new Cliente(new RefeicaoSaudavelFactory());
 
             Assert.IsType(typeof(Chickenburguer), cliente.Factory.CriarSanduiche());
